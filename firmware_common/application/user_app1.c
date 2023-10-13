@@ -38,7 +38,7 @@ PROTECTED FUNCTIONS
 **********************************************************************************************************************/
 
 #include "configuration.h"
-
+#include "eief1-pcb-01.h"
 /***********************************************************************************************************************
 Global variable definitions with scope across entire project.
 All Global variable names shall start with "G_<type>UserApp1"
@@ -70,6 +70,11 @@ Function Definitions
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*! @publicsection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
+void delay_ms(uint16_t delay){
+  //Since the system tick is 1ms, each iteration of a loop will take 1 ms
+  for (;delay > 0 ;--delay);  		      /* Wait for specified time period */
+
+}
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*! @protectedsection */                                                                                            
@@ -92,6 +97,19 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
+
+  for(uint8_t i = 7; i >= 0; i--){
+    for (uint8_t j = 0; j < 8 ; j++)
+    {
+      if (i == j)
+      {
+        break;
+      }
+      
+      LedBlink(j,LED_1HZ);
+    }
+    LedOn(i);
+  }
   /* If good initialization, set state to Idle */
   if( 1 )
   {
